@@ -1,0 +1,40 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+group = 'blockcraft'
+version = '1.0.0'
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    gdxVersion = '1.12.1'
+}
+
+dependencies {
+    implementation "com.badlogicgames.gdx:gdx:$gdxVersion"
+    implementation "com.badlogicgames.gdx:gdx-backend-lwjgl3:$gdxVersion"
+    runtimeOnly  "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+application {
+    mainClass = "blockcraft.DesktopLauncher"
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = "UTF-8"
+}
+
+run {
+    // Better Windows DPI behavior and consistent logs
+    standardInput = System.in
+}
