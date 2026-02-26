@@ -11,7 +11,7 @@ public final class GameState {
 
     public int selectedIndex = 0; // hotbar index (mirrors player selection)
     public final TileType[] hotbar = new TileType[] {
-            TileType.DIRT, TileType.GRASS, TileType.STONE, TileType.LOG, TileType.PLANKS, TileType.WATER
+            TileType.DIRT, TileType.GRASS, TileType.STONE, TileType.LOG, TileType.PLANKS, TileType.WATER, TileType.GOLD
     };
 
     public final Mob mob;
