@@ -9,7 +9,8 @@ public enum TileType {
     STONE(true, true, new Color(0.55f, 0.55f, 0.60f, 1f)),
     WATER(false, false, new Color(0.20f, 0.45f, 0.90f, 1f)),
     LOG(true, true, new Color(0.55f, 0.30f, 0.12f, 1f)),
-    PLANKS(true, true, new Color(0.80f, 0.65f, 0.35f, 1f));
+    PLANKS(true, true, new Color(0.80f, 0.65f, 0.35f, 1f)),
+    GOLD(true, true, Color.GOLD);
 
     public final boolean solid;
     public final boolean mineable;

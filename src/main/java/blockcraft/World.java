@@ -9,7 +9,8 @@ import java.util.Random;
 public final class World {
     public final int width;
     public final int height;
-    private final TileType[] tiles; // row-major
+    private final TileType[] tiles;// row-major
+    private Object rng;
 
     public World(int width, int height) {
         this.width = width;
@@ -47,9 +48,11 @@ public final class World {
             int gy = clamp(baseGround + bump, 4, height - 4);
 
             for (int y = gy; y < height; y++) {
+                int goldChance = rng.nextInt(50);
                 if (y == gy) set(x, y, TileType.GRASS);
-                else if (y < gy + 3) set(x, y, TileType.DIRT);
-                else set(x, y, TileType.STONE);
+                else if (y < gy + 3)  set(x, y, TileType.DIRT);
+                else if (goldChance != 1) set(x, y, TileType.STONE);
+                else set(x, y, TileType.GOLD);
             }
 
             // water pools above ground in random low spots

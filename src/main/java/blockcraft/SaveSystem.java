@@ -119,6 +119,7 @@ public final class SaveSystem {
             case WATER -> 'w';
             case LOG -> 'l';
             case PLANKS -> 'p';
+            case GOLD -> 'a';
         };
     }
 
@@ -131,6 +132,7 @@ public final class SaveSystem {
             case 'w' -> TileType.WATER;
             case 'l' -> TileType.LOG;
             case 'p' -> TileType.PLANKS;
+            case 'a' -> TileType.GOLD;
             default -> TileType.AIR;
         };
     }
