@@ -256,7 +256,7 @@ public final class BlockCraftGame extends ApplicationAdapter {
 
         // hotbar
         float barY = 20;
-        float barX = (w - (state.hotbar.length * 64)) / 2f;
+        float barX = (w - (state.hotbar.length * 64)) / 4f;
         for (int i = 0; i < state.hotbar.length; i++) {
             TileType t = state.hotbar[i];
             float x = barX + i * 64;

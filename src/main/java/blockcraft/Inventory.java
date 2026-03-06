@@ -11,6 +11,11 @@ public final class Inventory {
         add(TileType.DIRT, 25);
         add(TileType.PLANKS, 12);
     }
+    public Inventory(int goldCount){
+        add(TileType.DIRT, 25);
+        add(TileType.PLANKS, 12);
+        add(TileType.GOLD, goldCount);
+    }
 
     public int get(TileType t) {
         return counts.getOrDefault(t, 0);

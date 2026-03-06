@@ -16,7 +16,7 @@ public final class Player implements Entity {
     private float x;
     private float y;
 
-    private final Inventory inventory = new Inventory();
+    private final Inventory inventory = new Inventory(5);
     private int selectedIndex = 0;
 
     private static final float SPEED_TILES_PER_SEC = 5.0f;
@@ -33,6 +33,8 @@ public final class Player implements Entity {
 
     @Override
     public float y() { return y; }
+
+
 
     @Override
     public void setPos(float x, float y) {
