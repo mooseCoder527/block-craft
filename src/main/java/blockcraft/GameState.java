@@ -6,6 +6,8 @@ import java.util.Random;
 public final class GameState {
     public final long seed;
     public final World world;
+    public final Store store ;
+    public final NPC npc;
 
     public final Player player;
 
@@ -21,6 +23,8 @@ public final class GameState {
         this.seed = seed;
         this.world = new World(w, h);
         this.world.generate(seed);
+        this.store = new Store();
+        this.npc = createStoreNpcNearSpawn();
 
         this.rng = new Random(seed ^ 0x9E3779B97F4A7C15L);
 
@@ -51,6 +55,22 @@ public final class GameState {
         // mob spawn (same as before)
         mob = new Mob(player.x() + 6f, player.y());
         syncSelectionToPlayer();
+    }
+    private NPC createStoreNpcNearSpawn() {
+        for (int radius = 2; radius <= 12; radius++) {
+            for (int dy = -radius; dy <= radius; dy++) {
+                for (int dx = -radius; dx <= radius; dx++) {
+                    int tx = Math.round(player.x() - 0.5f) + dx;
+                    int ty = Math.round(player.y() - 0.5f) + dy;
+                    if (!world.inBounds(tx, ty)) continue;
+                    if (world.get(tx, ty).solid) continue;
+                    if (world.get(tx, ty) == TileType.WATER) continue;
+                    if (Math.abs(dx) + Math.abs(dy) < 3) continue;
+                    return new NPC(tx + 0.5f, ty + 0.5f);
+                }
+            }
+        }
+        return new NPC(player.x() + 3f, player.y());
     }
 
     public TileType selectedTile() {
