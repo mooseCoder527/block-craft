@@ -5,34 +5,46 @@ import java.util.Map;
 
 /** hotbar-style inventory */
 public final class Inventory {
-    private static final EnumMap<TileType, Integer> counts = new EnumMap<>(TileType.class);
+    private final EnumMap<TileType, Integer> counts = new EnumMap<>(TileType.class);
 
     public Inventory() {
-        add(TileType.DIRT, 25);
-        add(TileType.PLANKS, 12);
+        this(0);
     }
-    public Inventory(int goldCount){
+
+    public Inventory(int goldCount) {
         add(TileType.DIRT, 25);
         add(TileType.PLANKS, 12);
         add(TileType.GOLD, goldCount);
     }
 
-    public static int get(TileType t) {
+    public int get(TileType t) {
         return counts.getOrDefault(t, 0);
     }
 
-    public static void add(TileType t, int amount) {
+    public void add(TileType t, int amount) {
         if (amount <= 0) return;
         counts.put(t, get(t) + amount);
     }
 
-    public static boolean take(TileType t, int amount) {
+    public boolean take(TileType t, int amount) {
+        if (amount <= 0) return true;
         int have = get(t);
         if (have < amount) return false;
         int left = have - amount;
         if (left == 0) counts.remove(t);
         else counts.put(t, left);
         return true;
+    }
+
+    public void clear() {
+        counts.clear();
+    }
+
+    public void replaceWith(Map<TileType, Integer> snapshot) {
+        counts.clear();
+        for (Map.Entry<TileType, Integer> entry : snapshot.entrySet()) {
+            add(entry.getKey(), entry.getValue());
+        }
     }
 
     public Map<TileType, Integer> snapshot() {
