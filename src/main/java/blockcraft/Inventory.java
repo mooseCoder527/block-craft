@@ -8,10 +8,10 @@ public final class Inventory {
     private final EnumMap<TileType, Integer> counts = new EnumMap<>(TileType.class);
 
     public Inventory() {
-        add(TileType.DIRT, 25);
-        add(TileType.PLANKS, 12);
+        this(0);
     }
-    public Inventory(int goldCount){
+
+    public Inventory(int goldCount) {
         add(TileType.DIRT, 25);
         add(TileType.PLANKS, 12);
         add(TileType.GOLD, goldCount);
@@ -27,12 +27,24 @@ public final class Inventory {
     }
 
     public boolean take(TileType t, int amount) {
+        if (amount <= 0) return true;
         int have = get(t);
         if (have < amount) return false;
         int left = have - amount;
         if (left == 0) counts.remove(t);
         else counts.put(t, left);
         return true;
+    }
+
+    public void clear() {
+        counts.clear();
+    }
+
+    public void replaceWith(Map<TileType, Integer> snapshot) {
+        counts.clear();
+        for (Map.Entry<TileType, Integer> entry : snapshot.entrySet()) {
+            add(entry.getKey(), entry.getValue());
+        }
     }
 
     public Map<TileType, Integer> snapshot() {
